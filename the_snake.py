@@ -1,5 +1,5 @@
-from random import randint
 import pygame
+from random import randint
 
 # Константы для размеров поля и сетки:
 SCREEN_WIDTH, SCREEN_HEIGHT = 640, 480
@@ -15,9 +15,9 @@ RIGHT = (1, 0)
 
 # Цвета:
 BOARD_BACKGROUND_COLOR = (0, 0, 0)      # Цвет фона
-BORDER_COLOR = (93, 216, 228)            # Цвет границ
-APPLE_COLOR = (255, 0, 0)                # Цвет яблока
-SNAKE_COLOR = (0, 255, 0)                # Цвет змейки
+BORDER_COLOR = (93, 216, 228)           # Цвет границ
+APPLE_COLOR = (255, 0, 0)               # Цвет яблока
+SNAKE_COLOR = (0, 255, 0)               # Цвет змейки
 
 # Скорость игры:
 SPEED = 20
@@ -32,6 +32,7 @@ class GameObject:
     """Базовый класс для игровых объектов."""
 
     def __init__(self):
+        """Инициализация базового объекта."""
         self.position = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
         self.body_color = None
 
@@ -44,6 +45,7 @@ class Apple(GameObject):
     """Класс для объекта яблока."""
 
     def __init__(self):
+        """Инициализация яблока."""
         super().__init__()
         self.body_color = APPLE_COLOR
         self.randomize_position()
@@ -66,6 +68,7 @@ class Snake(GameObject):
     """Класс для объекта змейки."""
 
     def __init__(self):
+        """Инициализация змейки."""
         super().__init__()
         self.length = 1
         self.positions = [self.position]
@@ -103,12 +106,10 @@ class Snake(GameObject):
             pygame.draw.rect(screen, self.body_color, rect)
             pygame.draw.rect(screen, BORDER_COLOR, rect, 1)
 
-        # Голова змейки
         head_rect = pygame.Rect(self.positions[0], (GRID_SIZE, GRID_SIZE))
         pygame.draw.rect(screen, self.body_color, head_rect)
         pygame.draw.rect(screen, BORDER_COLOR, head_rect, 1)
 
-        # Затирание последнего сегмента
         if self.last:
             last_rect = pygame.Rect(self.last, (GRID_SIZE, GRID_SIZE))
             pygame.draw.rect(screen, BOARD_BACKGROUND_COLOR, last_rect)
@@ -160,7 +161,6 @@ def main():
 
         snake.draw()
         apple.draw()
-
         pygame.display.update()
 
 
